@@ -1,0 +1,7 @@
+{
+  "name": "CallingSolutions",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
