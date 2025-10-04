@@ -1,0 +1,38 @@
+<app-header></app-header>
+<ion-content>
+  <div class="mx-4 mt-3">
+    <ion-row class=" date-row">
+      <p-datepicker [touchUI]="true" appendTo="body" inputId="customDate" [(ngModel)]="dateRange" view="month"
+        dateFormat="mm/yy" (onSelect)="selectDateFilter($event)" />
+      <ion-col size="8" class="flex justify-content-start align-items-center">
+        <label for="customDate">
+          <ion-icon name="calendar-clear-outline" class=" pr-2"></ion-icon>{{ dateRange | date:'MMMM, yyyy' }}
+        </label>
+      </ion-col>
+      <ion-col class="flex justify-content-center align-items-center chekdate-btn"><span>Check</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-center text">
+        <span>Call counts are recorded daily, showing the total number of calls made each day.</span>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="monthly-report-datepicker">
+    <p-datepicker [(ngModel)]="dateRange" [inline]="true" (onMonthChange)="onMonthChange($event)">
+      <ng-template pTemplate="date" let-date>
+        <div class="custom-day-cell" [style.position]="'relative'"
+          [style.backgroundColor]="(date.day % 2 === 0) ? '#D9D9D9' : '#ffffff'"
+          [style.opacity]="alphabetNumbers[getLetterForDay(date.day)] === 0 ? 0.5 : 1">
+          <div class="custom-letter">
+            {{ alphabetNumbers[ getLetterForDay(date.day) ] }}
+          </div>
+          <span class="event-badge">
+            {{ date.day }}
+          </span>
+        </div>
+      </ng-template>
+    </p-datepicker>
+  </div>
+</ion-content>

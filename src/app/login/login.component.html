@@ -1,0 +1,98 @@
+<div class="page-background">
+  <ion-row>
+    <ion-col class="flex justify-content-center align-items-center">
+      <ion-img src="../../assets/login-page-img.svg"></ion-img>
+    </ion-col>
+  </ion-row>
+
+  <!-- Login Section -->
+  @if(!isOtpSend){
+  <form ngNativeValidate #otpForm="ngForm" class="login-form" (ngSubmit)="onLoginSubmit()">
+    <section class="m-2 md:m-3 lg:m-4 pt-3 md:pt-4 px-2 md:px-3 lg:px-4 lg:py-4">
+      @if(isOtpLogin){
+      <ion-row>
+        <ion-col>
+          <ion-input inputmode="numeric" class="borderNone" name="regiNumber" placeholder="Enter Register Number"
+            [(ngModel)]="loginData.number" pattern="^[0-9]{10}$" (input)="setCustomValidity($event)" required>
+            <ion-icon class="px-2 m-0" name="keypad" slot="start" aria-hidden="true"></ion-icon>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      }
+
+      @if(!isOtpLogin){
+      <ion-row>
+        <ion-col>
+          <ion-input class="borderNone" name="name" [(ngModel)]="loginData.username" placeholder="Enter User Name "
+            required>
+            <ion-icon class="px-2 m-0" name="person" slot="start" aria-hidden="true"></ion-icon>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      {{timer}}
+      <ion-row>
+        <ion-col>
+          <ion-input class="borderNone" [type]="isPasswordVisible ? 'text' : 'password'" name="password"
+            placeholder="Enter password" [(ngModel)]="loginData.password" required>
+            <ion-icon class="px-2 m-0" [name]="isPasswordVisible?'eye-outline':'eye-off-outline'" slot="start"
+              (click)="togglePasswordVisibility()"></ion-icon>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      }
+      <ion-row>
+        <ion-col class="flex align-items-center justify-content-center lg:justify-content-end">
+          <ion-button type="submit" fill="clear"> LOGIN </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="flex justify-content-center align-items-center">
+          @if (isOtpLogin) {
+          <span fill="clear" class="text-decoration-underline" (click)="isOtpLogin = !isOtpLogin"> login
+            with Username/Password </span>
+          }
+
+          @if(!isOtpLogin){
+          <span fill="clear" class="text-decoration-underline" (click)="isOtpLogin = !isOtpLogin">
+            login with OTP</span>
+          }
+        </ion-col>
+      </ion-row>
+    </section>
+  </form>
+  }@else{
+  <form class="login-form otp-validation-form" ngNativeValidate #otpForm="ngForm">
+    <section class="m-2 md:m-3 lg:m-4 pt-3 md:pt-4 px-2 md:px-3 lg:px-4 lg:py-4">
+      <ion-row>
+        <ion-col class="ion-text-left otp-varification-text">OTP Verification</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="custom-col enter-text">Enter the verification code we just sent on your Mobile Number.
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="p-0 flex align-items-center justify-content-center lg:justify-content-end ">
+          <p class="m-0">{{timer}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="mt-2 justify-content-center">
+        <ng-otp-input [config]="{length:4, allowNumbersOnly:true}"></ng-otp-input>
+      </ion-row>
+      <ion-row class="flex align-items-center justify-content-center lg:justify-content-end my-2">
+        <ion-button fill="clear" type="submit" [disabled]="!otpForm.valid">Verify</ion-button>
+      </ion-row>
+      @if(otpResend){
+      <ion-row class="otp-not-received-row ">
+        <ion-col class="pt-0 flex align-items-center justify-content-center">
+          <span> Didn’t receive code? </span>
+          <span class="otpResendText" (click)="resendOtp()"> Resend</span>
+        </ion-col>
+      </ion-row>
+      }
+    </section>
+  </form>
+  }
+
+
+
+</div>

@@ -1,0 +1,48 @@
+import { Component, OnInit } from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { DataService } from '../services/data-service';
+import { DatePickerModule } from 'primeng/datepicker';
+@Component({
+  selector: 'app-executives-report',
+  templateUrl: './executives-report.component.html',
+  styleUrls: ['./executives-report.component.scss'],
+  imports: [
+    HeaderComponent,
+    DatePickerModule,
+    CommonModule,
+    FormsModule,
+    IonicModule,
+  ],
+})
+export class ExecutivesReportComponent implements OnInit {
+  filteredParams = {
+    isDateFilter: '',
+    fromdate: '',
+    todate: '',
+    callStatus: '',
+  };
+  dateRange: any[];
+
+  constructor(public _dataService: DataService) {}
+
+  ngOnInit() {
+    this.filteredParams = this._dataService.getQueryParams(this.filteredParams);
+  }
+
+  selectDateFilter(dateType) {
+    this.filteredParams = this._dataService.selectDateFilter(
+      dateType,
+      this.filteredParams
+    );
+    this._dataService.addQueryParams(this.filteredParams);
+  }
+
+  getsevenDaysAgo() {
+    const today = new Date();
+    today.setDate(today.getDate() - 6);
+    return today.toISOString().split('T')[0];
+  }
+}

@@ -34,4 +34,179 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+@import "primeicons/primeicons.css";
+
+* {
+  font-family: "Poppins";
+}
+
+.active_btn {
+  background: #0b7ab2;
+  box-shadow: 0px 0px 16px 0px #0000001f;
+  color: #ffffff !important;
+}
+.normal_btn {
+  border: 1px solid #d8d8d8;
+  color: #5b6a83;
+  box-shadow: 0px 2px 10px 0px rgba(124, 124, 124, 0.2);
+}
+ion-menu-button {
+  font-size: 30px;
+  color: #0b7ab2;
+}
+.logo {
+  width: 36px;
+}
+
+.active-menu {
+  background-color: #e6f7ff;
+  border-left: 4px solid #0b7ab2;
+  font-weight: bold;
+  color: #0b7ab2;
+}
+.p-datepicker-input {
+  display: none !important;
+}
+.p-datepicker-panel {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}
+.p-datepicker {
+  position: absolute !important;
+}
+.p-datepicker-day-selected {
+  --p-datepicker-date-selected-background: rgb(11, 122, 178) !important;
+}
+.p-datepicker-day-selected-range {
+  --p-datepicker-date-range-selected-color: #0b7ab2 !important;
+  --p-datepicker-date-range-selected-background: #0b7ab25e !important;
+}
+
+.p-datepicker-day:focus-visible {
+  --p-datepicker-date-focus-ring-color: #0b7ab25e;
+}
+.p-confirmdialog-accept-button {
+  --p-button-primary-background: #0b7ab2;
+  --p-button-primary-color: white;
+  --p-button-primary-border-color: #0b7ab2;
+}
+
+.filteredChips ion-button {
+  color: #0b7ab2;
+  font-size: 12px;
+  font-family: Poppins;
+  font-weight: 400;
+  word-wrap: break-word;
+  border: 0.5px #0b7ab2 solid;
+  border-radius: 4px;
+  text-transform: capitalize;
+  height: 26px;
+  min-height: 26px;
+  margin: 2px 6px;
+}
+.datefilter-div {
+  ion-row {
+    gap: 5px;
+  }
+  ion-col {
+    font-size: 12px;
+    border-radius: 4px;
+  }
+  ion-icon {
+    font-size: 16px;
+    color: #0b7ab2;
+  }
+}
+
+.text-value {
+  color: #202224;
+  font-weight: 500;
+  font-size: 12px;
+  padding-top: 0;
+  line-height: 1.1;
+}
+
+.text-label {
+  color: #727272;
+  font-weight: 300;
+  font-size: 12px;
+  padding-bottom: 0;
+  text-transform: capitalize;
+}
+
+.scroll-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  gap: 5px;
+  margin: 0 10px;
+}
+.scroll-item {
+  font-size: 12px;
+  border-radius: 50px;
+  padding: 2px 10px;
+  white-space: nowrap;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+ion-searchbar .searchbar-input {
+  padding: 0;
+  -webkit-padding-end: 0 !important;
+  -webkit-padding-start: 0 !important;
+  padding-inline-end: 25px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-inline-start: 40px !important;
+  border-radius: 25px !important;
+}
+.searchbar-input-container {
+  border-radius: 50px;
+  border: 0.2px solid #bebfc8;
+}
+.searchbar-search-icon.sc-ion-searchbar-md {
+  top: 5px;
+}
+ion-searchbar {
+  --box-shadow: 0px 2px 10px 0px rgba(124, 124, 124, 0.2) !important;
+  --placeholder-color: #98a2b3;
+  --icon-color: #98a2b3;
+}
+.searchbar-search-icon.sc-ion-searchbar-md {
+  width: 20px;
+  height: 20px;
+}
+ion-searchbar .searchbar-input.searchbar-input.sc-ion-searchbar-md {
+  font-size: 12px;
+}
+.searchbar-input.sc-ion-searchbar-md {
+  --webkit-box-shadow: none;
+  font-size: 16px;
+  color: #060606 !important;
+  font-family: "Poppins";
+}
+.active-btn-light-color {
+  background: #e0f1fe !important;
+  color: #0b7ab2 !important;
+}
+
+.custom-confirm-dialog.p-dialog {
+  margin: 14px !important;
+}
+.custom-confirm-dialog .p-dialog-header {
+  padding: 5px !important;
+}
+.custom-confirm-dialog.p-confirmdialog .p-dialog-content {
+  padding-bottom: 0 !important;
+}
+.custom-confirm-dialog.p-confirmdialog-accept-button {
+  --p-button-primary-background: #0b7ab2;
+  --p-button-primary-color: white;
+  --p-button-primary-border-color: #0b7ab2;
+}

@@ -1,0 +1,156 @@
+<app-header></app-header>
+
+<ion-content class="p-2">
+  <!-- DATE FILTER -->
+  <div class="m-2 mb-0 datefilter-div">
+    <ion-row>
+      <ion-col (click)="selectDateFilter('today')" class="normal_btn flex  align-items-center justify-content-center"
+        [ngClass]="filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
+        <span>Today</span>
+      </ion-col>
+      <ion-col (click)="selectDateFilter('lastsevenDay')"
+        class="normal_btn flex  align-items-center justify-content-center"
+        [ngClass]="filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
+        <span>Last 7 days</span>
+      </ion-col>
+      <ion-col (click)="selectDateFilter('custom')" class="normal_btn flex  align-items-center justify-content-center"
+        [ngClass]="this.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
+        <label for="dashboard-customDate">Custom</label>
+      </ion-col>
+      <ion-col class="normal_btn flex align-items-center justify-content-center" size="1.2">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+  <p-datepicker [touchUI]="true" appendTo="body" selectionMode="range" inputId="dashboard-customDate"
+    [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'" (onSelect)="selectDateFilter('custom')" />
+
+  <!--CUSTOME DATE FILTERED CHIP  -->
+  @if(filteredParams?.isDateFilter == 'custom'){
+  <ion-row class="filteredChips">
+    <ion-col class="py-0">
+      <ion-button fill="clear" (click)="filteredParams.isDateFilter = 'today';selectDateFilter('today');
+        _dataService.addQueryParams(filteredParams)">
+        {{filteredParams.fromdate+" to "+filteredParams.todate}}
+        <ion-icon slot="end" name="close"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  }
+
+  <!-- CALL DETAILS COUNTS CARD -->
+  <section>
+    <ion-row>
+      <ion-col class="call-status-card pr-0">
+        <ion-card class="m-0">
+          <ion-img src="../../assets/icon/total_call.svg"></ion-img>
+          <div>
+            <span>
+              <ion-card-subtitle>Total Call Activity</ion-card-subtitle>
+              <h2>{{'200'}}</h2>
+            </span>
+          </div>
+          <div class="sub-counts m-0 p-1 flex  align-items-center justify-content-center flex-column">
+            <p class="m-0">Inbound Calls -<span>{{ "10" }}</span></p>
+            <p class="m-0">outbound Calls -<span>{{ "10" }}</span></p>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col class="call-status-card pl-0">
+        <ion-card class="m-0">
+          <ion-img src="../../assets/icon/live_call.svg"></ion-img>
+          <div>
+            <span>
+              <ion-card-subtitle>Live Calls</ion-card-subtitle>
+              <h2>{{'200'}}</h2>
+            </span>
+          </div>
+          <div class="sub-counts m-0 p-1 flex  align-items-center justify-content-center flex-column">
+            <p class="m-0">Inbound Calls -<span>{{ "10" }}</span></p>
+            <p class="m-0">outbound Calls -<span>{{ "10" }}</span></p>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="call-status-card">
+        <ion-card class="m-0">
+          <ion-img src="../../assets/icon/answered_call.svg"></ion-img>
+          <div>
+            <span>
+              <ion-card-subtitle>Answered Calls</ion-card-subtitle>
+              <h2>{{'200'}}</h2>
+            </span>
+          </div>
+          <div class="sub-counts m-0 p-1 flex  align-items-center justify-content-center ">
+            <p class="m-0">Inbound Calls -<span>{{ "10" }}</span></p>
+            <p class="m-0">outbound Calls -<span>{{ "10" }}</span></p>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="call-status-card pr-0">
+        <ion-card class="m-0">
+          <ion-img src="../../assets/icon/abondoned_call.svg"></ion-img>
+          <div>
+            <span>
+              <ion-card-subtitle>Abondoned Calls</ion-card-subtitle>
+              <h2>{{'200'}}</h2>
+            </span>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col class="call-status-card pl-0">
+        <ion-card class="m-0">
+          <ion-img src="../../assets/icon/queue_call.svg"></ion-img>
+          <div>
+            <span>
+              <ion-card-subtitle>Call Queues</ion-card-subtitle>
+              <h2>{{'200'}}</h2>
+            </span>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </section>
+
+  <div class="executive-view">
+    <ion-card class="exec-card">
+      <ion-row style="border-bottom: 0.4px solid #CFCFCF">
+        <ion-col>
+          <span>Agent's Fresh Lead View</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <span class="text-value">Rajendren Rajavel</span>
+        </ion-col>
+        <ion-col class="flex justify-content-end align-items-center">
+          <div class="offOnline greenbgwhiteborder"></div>
+          <span>Online</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="text-label" size="4"><span>total calls</span></ion-col>
+        <ion-col class="text-label px-0" size="3.5"><span>Answered Calls</span></ion-col>
+        <ion-col class="text-label" size="4.5"><span>Avg Speed Answer</span></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="text-value" size="4"><span>{{'200'}}</span></ion-col>
+        <ion-col class="text-value px-0" size="3.5"><span>{{'200'}}</span></ion-col>
+        <ion-col class="text-value" size="4.5"><span>{{'200'}}</span></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="text-label" size="4"><span>Abondoned Calls</span></ion-col>
+        <ion-col class="text-label px-0" size="3.5"><span>Total durations</span></ion-col>
+        <ion-col class="text-label" size="4.5"><span>breaks durations</span></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="text-value" size="4"><span>{{'200'}}</span></ion-col>
+        <ion-col class="text-value px-0" size="3.5"><span>{{'200'}}</span></ion-col>
+        <ion-col class="text-value" size="4.5"><span>{{'200'}}</span></ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,33 @@
+.audio {
+  background: rgb(183 216 233) !important;
+}
+audio::-webkit-media-controls-panel {
+  background: rgba(183, 216, 233, 1);
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: #fff;
+  border-radius: 50%;
+}
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: rgba(114, 114, 114, 1);
+}
+.border_bottom {
+  border-bottom: 0.4px solid #9a9a9a;
+}
+.number {
+  color: #0b7ab2;
+}
+.answeredCall-span {
+  background: #0c6d00;
+  border-radius: 50px;
+  color: white;
+  padding: 0 6px;
+}
+.missedCall-span {
+  background: #ee9200;
+  border-radius: 50px;
+  color: white;
+  padding: 0 6px;
+}

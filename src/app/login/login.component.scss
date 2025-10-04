@@ -1,0 +1,78 @@
+.page-background {
+  background: url("../../assets/bg-images/loginPage-bg-img.svg") no-repeat
+    center center / cover;
+  height: 100vh;
+}
+.login-form {
+  ion-input {
+    border: 0.8px solid #d8d8d8;
+    background: #fbfbfb !important;
+    color: #a4a4a4;
+    min-height: 40px;
+    border-radius: 4px;
+    font-size: 4.4vw;
+  }
+  section {
+    border: 7px solid #0b7ab238;
+    background: #ffffffe3;
+    border-radius: 6px;
+  }
+  ion-button {
+    background: #0698e0;
+    color: #ffffff;
+    border-radius: 4px;
+    width: 50%;
+    font-size: 4.4vw;
+    font-family: "Poppins";
+  }
+  span {
+    color: #0b7ab2;
+    font-size: 4.4vw;
+    text-decoration: underline;
+  }
+  ion-img {
+    width: 14%;
+  }
+  ion-icon {
+    color: #0698e0;
+    font-size: 6.4vw;
+  }
+}
+
+.p-confirmdialog .p-dialog-header {
+  padding: 6px 10px;
+}
+.p-confirmdialog .p-confirmdialog-icon {
+  --p-confirmdialog-icon-size: 1.5rem;
+  color: red;
+}
+.p-confirmdialog .p-confirmdialog-accept-button {
+  --p-button-primary-background: #0698e0;
+  border: 1px solid #0698e0;
+}
+
+ng-otp-input .otp-input {
+  width: 50px !important;
+  height: 50px !important;
+}
+.enter-text {
+  line-height: 1.4;
+  font-size: 12px;
+  color: #aeaeae;
+}
+.otp-varification-text {
+  font-size: 20px;
+}
+.otp-not-received-row span {
+  color: #1e232c;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-decoration: none;
+}
+.otpResendText {
+  color: #aeaeae !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 19.6px !important;
+  text-decoration: none;
+}
