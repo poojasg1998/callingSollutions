@@ -6,6 +6,7 @@ import { DataService } from '../services/data-service';
 import { HeaderComponent } from '../header/header.component';
 import { DatePickerModule } from 'primeng/datepicker';
 import { EchoService } from '../services/echo.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,24 +22,18 @@ import { EchoService } from '../services/echo.service';
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('calendar') calendar;
-  filteredParams = {
-    isDateFilter: '',
-    fromdate: '',
-    todate: '',
-    execid: '',
-    callRecord: '',
-    clientnum: '',
-    leadName: '',
-    lastUpdate: '',
-  };
 
   constructor(
     public _dataService: DataService,
-    private _echoService: EchoService
+    private _echoService: EchoService,
+    private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.filteredParams = this._dataService.getQueryParams(this.filteredParams);
+    this.activeRoute.queryParams.subscribe(() => {
+      this._dataService.getQueryParams();
+    });
+
     this._echoService.listenToChannel(
       'database-changes',
       '.DatabaseNotification',
@@ -48,31 +43,17 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  selectDateFilter(dateType) {
-    this.filteredParams = this._dataService.selectDateFilter(
-      dateType,
-      this.filteredParams
-    );
-    this._dataService.addQueryParams(this.filteredParams);
-  }
-
-  getsevenDaysAgo() {
-    const today = new Date();
-    today.setDate(today.getDate() - 6);
-    return today.toISOString().split('T')[0];
-  }
-
   reset() {
-    this.filteredParams = {
-      fromdate: this._dataService.getTodayDate(),
-      todate: this._dataService.getTodayDate(),
-      isDateFilter: 'today',
-      execid: '',
-      callRecord: '',
-      clientnum: '',
-      leadName: '',
-      lastUpdate: '',
-    };
-    this._dataService.addQueryParams(this.filteredParams);
+    // this.filteredParams = {
+    //   fromdate: this._dataService.getTodayDate(),
+    //   todate: this._dataService.getTodayDate(),
+    //   isDateFilter: 'today',
+    //   execid: '',
+    //   callRecord: '',
+    //   clientnum: '',
+    //   leadName: '',
+    //   lastUpdate: '',
+    // };
+    // this._dataService.addQueryParams(this.filteredParams);
   }
 }

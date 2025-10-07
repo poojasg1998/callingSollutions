@@ -3,17 +3,19 @@
 <!-- DATE FILTER SECTION -->
 <div class="m-2 mb-0 datefilter-div">
   <ion-row>
-    <ion-col (click)="selectDateFilter('today')" class="normal_btn flex  align-items-center justify-content-center"
-      [ngClass]="filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
+    <ion-col (click)="_dataService.selectDateFilter('today')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
       <span>Today</span>
     </ion-col>
-    <ion-col (click)="selectDateFilter('lastsevenDay')"
+    <ion-col (click)="_dataService.selectDateFilter('lastsevenDay')"
       class="normal_btn flex  align-items-center justify-content-center"
-      [ngClass]="filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
+      [ngClass]="_dataService.filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
       <span>Last 7 days</span>
     </ion-col>
-    <ion-col (click)="selectDateFilter('custom')" class="normal_btn flex  align-items-center justify-content-center"
-      [ngClass]="this.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
+    <ion-col (click)="_dataService.selectDateFilter('custom')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
       <label for="executive-report-customDate">Custom</label>
     </ion-col>
     <ion-col class="normal_btn flex  align-items-center justify-content-center" size="1.2">
@@ -22,19 +24,19 @@
   </ion-row>
 </div>
 <p-datepicker [touchUI]="true" appendTo="body" selectionMode="range" inputId="executive-report-customDate"
-  [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'" (onSelect)="selectDateFilter('custom')" />
+  [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'" (onSelect)="_dataService.selectDateFilter('custom')" />
 <!-- SEARCH BAR  -->
 <ion-row>
   <ion-searchbar placeholder="Search a name / mobile number"></ion-searchbar>
 </ion-row>
 
 <!--CUSTOME DATE FILTERED CHIP  -->
-@if(filteredParams?.isDateFilter == 'custom'){
+@if(_dataService.filteredParams?.isDateFilter == 'custom'){
 <ion-row class="filteredChips">
   <ion-col class="py-0">
-    <ion-button fill="clear" (click)="filteredParams.isDateFilter = 'today';selectDateFilter('today');
-        _dataService.addQueryParams(filteredParams)">
-      {{filteredParams.fromdate+" to "+filteredParams.todate}}
+    <ion-button fill="clear"
+      (click)="_dataService.filteredParams.isDateFilter = 'today';_dataService.selectDateFilter('today');">
+      {{_dataService.filteredParams.fromdate+" to "+_dataService.filteredParams.todate}}
       <ion-icon slot="end" name="close"></ion-icon>
     </ion-button>
   </ion-col>

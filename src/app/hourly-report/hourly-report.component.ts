@@ -9,6 +9,7 @@ import { DataService } from '../services/data-service';
 import { ConfirmationService } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-hourly-report',
@@ -27,35 +28,22 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
   encapsulation: ViewEncapsulation.None,
 })
 export class HourlyReportComponent implements OnInit {
-  filteredParams = {
-    isDateFilter: '',
-    fromdate: '',
-    todate: '',
-    isZeroActiveLeads: 'true',
-  };
   searchVisible = false;
   selectedExec;
   executiveList1;
   isCustomDate = false;
 
-  constructor(public _dataService: DataService) {}
+  constructor(
+    public _dataService: DataService,
+    private activeRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.filteredParams = this._dataService.getQueryParams(this.filteredParams);
+    this.activeRoute.queryParams.subscribe(() => {
+      this._dataService.getQueryParams();
+    });
   }
 
-  selectDateFilter(dateType) {
-    this.filteredParams = this._dataService.selectDateFilter(
-      dateType,
-      this.filteredParams
-    );
-    this._dataService.addQueryParams(this.filteredParams);
-  }
-  getsevenDaysAgo() {
-    const today = new Date();
-    today.setDate(today.getDate() - 6);
-    return today.toISOString().split('T')[0];
-  }
   checkIfBeforeTargetDate() {
     return false;
   }

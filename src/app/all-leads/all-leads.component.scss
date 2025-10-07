@@ -13,3 +13,41 @@
     font-size: 28px;
   }
 }
+
+ion-modal.callConfirmationModal {
+  padding: 10px;
+  --height: auto;
+  --border-radius: 5px;
+  --backdrop-opacity: 0.8;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+.callConfirmationModal ion-header {
+  font-family: "Poppins";
+  box-shadow: none;
+  ion-row {
+    padding: 4px;
+  }
+  h3,
+  ion-icon {
+    font-size: 18px;
+    color: #ffffff !important;
+  }
+  ion-icon {
+    font-size: 30px;
+  }
+}
+
+.callConfirmationModal ion-button {
+  width: 100%;
+  border-radius: 4px;
+  font-family: "Poppins";
+  font-size: 18px;
+  text-transform: none;
+}
+.callConfirmationModal ion-footer {
+  box-shadow: none;
+}
+.call-confirmation-btn {
+  color: rgba(65, 65, 65, 1);
+}

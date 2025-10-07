@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ScrollCenterDirective } from '../directives/scroll-center.directive';
 import { IonicModule } from '@ionic/angular';
 import { DataService } from '../services/data-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-all-calls',
@@ -22,29 +23,19 @@ import { DataService } from '../services/data-service';
   encapsulation: ViewEncapsulation.None,
 })
 export class AllCallsComponent implements OnInit {
-  filteredParams = {
-    isDateFilter: '',
-    fromdate: '',
-    todate: '',
-    callStatus: '',
-  };
-
-  constructor(public _dataService: DataService) {}
+  constructor(
+    public _dataService: DataService,
+    private activeRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.filteredParams = this._dataService.getQueryParams(this.filteredParams);
-  }
-
-  selectDateFilter(dateType) {
-    this.filteredParams = this._dataService.selectDateFilter(
-      dateType,
-      this.filteredParams
-    );
-    this._dataService.addQueryParams(this.filteredParams);
+    this.activeRoute.queryParams.subscribe((param) => {
+      this._dataService.getQueryParams();
+    });
   }
 
   onStages(stage) {
-    this.filteredParams.callStatus = stage;
-    this._dataService.addQueryParams(this.filteredParams);
+    this._dataService.filteredParams.callStatus = stage;
+    this._dataService.addQueryParams();
   }
 }

@@ -9,6 +9,19 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class DataService {
   dateRange;
+  filteredParams = {
+    isDateFilter: '',
+    fromdate: '',
+    todate: '',
+    execid: '',
+    callRecord: '',
+    clientnum: '',
+    leadName: '',
+    lastUpdate: '',
+    callStatus: '',
+    isZeroActiveLeads: '',
+  };
+
   constructor(
     private menuCtrl: MenuController,
     private activeRoute: ActivatedRoute,
@@ -25,14 +38,14 @@ export class DataService {
     return today.toISOString().split('T')[0];
   }
 
-  addQueryParams(filteredParams) {
+  addQueryParams() {
     const queryParams = {};
     let paramsChanged = false;
-    for (const key in filteredParams) {
-      if (filteredParams.hasOwnProperty(key)) {
+    for (const key in this.filteredParams) {
+      if (this.filteredParams.hasOwnProperty(key)) {
         // Set the param if it's not empty, otherwise set to null
         const newParamValue =
-          filteredParams[key] !== '' ? filteredParams[key] : null;
+          this.filteredParams[key] !== '' ? this.filteredParams[key] : null;
         // Check if query parameters have changed
         if (this.activeRoute.snapshot.queryParams[key] !== newParamValue) {
           paramsChanged = true;
@@ -43,7 +56,7 @@ export class DataService {
     this.router.navigate([], { queryParams, queryParamsHandling: 'merge' });
   }
 
-  getQueryParams(defaults: any = {}): any {
+  getQueryParams() {
     const queryString = window.location.search;
     const queryParams: any = {};
 
@@ -53,7 +66,7 @@ export class DataService {
     });
 
     // Merge with defaults
-    const result: any = { ...defaults };
+    const result: any = { ...this.filteredParams };
     Object.keys(result).forEach((key) => {
       if (queryParams.hasOwnProperty(key)) {
         result[key] = queryParams[key];
@@ -61,23 +74,20 @@ export class DataService {
         result[key] = '';
       }
     });
-
-    return result;
+    this.filteredParams = result;
   }
 
-  selectDateFilter(dateType, filteredParams) {
+  selectDateFilter(dateType) {
     if (dateType == 'today') {
       this.dateRange = null;
-      filteredParams.isDateFilter = 'today';
-      filteredParams.fromdate = this.getTodayDate();
-      filteredParams.todate = this.getTodayDate();
-      return filteredParams;
+      this.filteredParams.isDateFilter = 'today';
+      this.filteredParams.fromdate = this.getTodayDate();
+      this.filteredParams.todate = this.getTodayDate();
     } else if (dateType == 'lastsevenDay') {
       this.dateRange = null;
-      filteredParams.isDateFilter = 'lastsevendays';
-      filteredParams.fromdate = this.getsevenDaysAgo();
-      filteredParams.todate = this.getTodayDate();
-      return filteredParams;
+      this.filteredParams.isDateFilter = 'lastsevendays';
+      this.filteredParams.fromdate = this.getsevenDaysAgo();
+      this.filteredParams.todate = this.getTodayDate();
     } else if (dateType == 'custom') {
       if (this.dateRange && this.dateRange[0] && this.dateRange[1]) {
         const fromDate = new Date(this.dateRange[0]);
@@ -95,54 +105,63 @@ export class DataService {
             rejectVisible: false, // only "Ok" button
             accept: () => {
               this.dateRange = null;
-              filteredParams.isDateFilter = 'today';
-              filteredParams.fromdate = this.getTodayDate();
-              filteredParams.todate = this.getTodayDate();
+              this.filteredParams.isDateFilter = 'today';
+              this.filteredParams.fromdate = this.getTodayDate();
+              this.filteredParams.todate = this.getTodayDate();
             },
             reject: () => {
               this.dateRange = null;
-              filteredParams.isDateFilter = 'today';
-              filteredParams.fromdate = this.getTodayDate();
-              filteredParams.todate = this.getTodayDate();
+              this.filteredParams.isDateFilter = 'today';
+              this.filteredParams.fromdate = this.getTodayDate();
+              this.filteredParams.todate = this.getTodayDate();
             },
           });
         } else {
           if (this.dateRange?.length === 2 && this.dateRange[1] != null) {
-            filteredParams.isDateFilter = 'custom';
+            this.filteredParams.isDateFilter = 'custom';
             const start = formatDate(this.dateRange[0], 'yyyy-MM-dd', 'en-US');
             const end = formatDate(this.dateRange[1], 'yyyy-MM-dd', 'en-US');
-            filteredParams.fromdate = start;
-            filteredParams.todate = end != '1970-01-01' ? end : '';
+            this.filteredParams.fromdate = start;
+            this.filteredParams.todate = end != '1970-01-01' ? end : '';
           } else {
-            if (filteredParams.fromdate != '' && filteredParams.todate != '') {
-              filteredParams.fromdate = filteredParams.fromdate;
-              filteredParams.todate = filteredParams.todate;
+            if (
+              this.filteredParams.fromdate != '' &&
+              this.filteredParams.todate != ''
+            ) {
+              this.filteredParams.fromdate = this.filteredParams.fromdate;
+              this.filteredParams.todate = this.filteredParams.todate;
             } else {
-              filteredParams.fromdate = this.getTodayDate();
-              filteredParams.todate = this.getTodayDate();
-              filteredParams.isDateFilter = 'today';
-              this.addQueryParams(filteredParams);
+              this.filteredParams.fromdate = this.getTodayDate();
+              this.filteredParams.todate = this.getTodayDate();
+              this.filteredParams.isDateFilter = 'today';
+              this.addQueryParams();
             }
           }
         }
-        return filteredParams;
       } else {
-        if (filteredParams.fromdate != '' && filteredParams.todate != '') {
-          filteredParams.fromdate = filteredParams.fromdate;
-          filteredParams.todate = filteredParams.todate;
+        if (
+          this.filteredParams.fromdate != '' &&
+          this.filteredParams.todate != ''
+        ) {
+          this.filteredParams.fromdate = this.filteredParams.fromdate;
+          this.filteredParams.todate = this.filteredParams.todate;
         } else {
-          filteredParams.fromdate = this.getTodayDate();
-          filteredParams.todate = this.getTodayDate();
-          filteredParams.isDateFilter = 'today';
+          this.filteredParams.fromdate = this.getTodayDate();
+          this.filteredParams.todate = this.getTodayDate();
+          this.filteredParams.isDateFilter = 'today';
         }
-        return filteredParams;
       }
     }
+    this.addQueryParams();
   }
 
   getsevenDaysAgo() {
     const today = new Date();
     today.setDate(today.getDate() - 6);
     return today.toISOString().split('T')[0];
+  }
+
+  isActiveRoute(url) {
+    return this.router.url.indexOf(url) == 1;
   }
 }

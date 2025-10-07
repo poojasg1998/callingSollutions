@@ -6,39 +6,41 @@
     </ion-header>
 
     <ion-content>
+
       <ion-list>
-        <ion-item routerLink="/dashboard" routerLinkActive="active-menu"
+        <ion-item routerLink="/dashboard" [class.active-menu]="_dataService.isActiveRoute('dashboard')"
           [queryParams]="{fromdate:_dataService.getTodayDate(),todate:_dataService.getTodayDate(),isDateFilter:'today'}"
           lines="none" (click)="menu.close()">
           <ion-img class="pr-2" src="../../assets/icon/MenuSection_icons/dashboard.svg"></ion-img>
           Dashboard</ion-item>
         <ion-item
           [queryParams]="{fromdate:_dataService.getTodayDate(),todate:_dataService.getTodayDate(),isDateFilter:'today',callStatus:'allCalls'}"
-          routerLink="/all-leads" lines="none" routerLinkActive="active-menu">
+          routerLink="/all-leads" lines="none" [class.active-menu]="_dataService.isActiveRoute('all-leads')">
           <ion-img class="pr-2" src="../../assets/icon/MenuSection_icons/all-leads.svg"></ion-img>
           All Leads</ion-item>
         <ion-item
           [queryParams]="{fromdate:_dataService.getTodayDate(),todate:_dataService.getTodayDate(),isDateFilter:'today',callStatus:'allCalls'}"
-          routerLink="/all-calls" lines="none" routerLinkActive="active-menu">
+          routerLink="/all-calls" lines="none" [class.active-menu]="_dataService.isActiveRoute('all-calls')">
           <ion-img class="pr-2" src="../../assets/icon/MenuSection_icons/all-calls.svg"></ion-img>
           All Calls</ion-item>
-        <ion-item routerLink="/live-calls" lines="none" routerLinkActive="active-menu">
+        <ion-item routerLink="/live-calls" lines="none" [class.active-menu]="_dataService.isActiveRoute('live-calls')">
           <ion-img class="pr-2" src="../../assets/icon/MenuSection_icons/live-calls.svg"></ion-img>
           Live Calls
         </ion-item>
-        <ion-item
-          [queryParams]="{fromdate:_dataService.getTodayDate(),todate:_dataService.getTodayDate(),isDateFilter:'today'}"
-          routerLink="/hourly-report" lines="none" routerLinkActive="active-menu">
+        <ion-item routerLink="/hourly-report" [class.active-menu]="_dataService.isActiveRoute('hourly-report')"
+          lines="none"
+          [queryParams]="{fromdate:_dataService.getTodayDate(),todate:_dataService.getTodayDate(),isDateFilter:'today'}">
           <ion-img class="pr-2" src="../../assets/icon/MenuSection_icons/hourly-report.svg"></ion-img>Hourly
           Report</ion-item>
         <ion-item
           [queryParams]="{fromdate:_dataService.getTodayDate(),todate:_dataService.getTodayDate(),isDateFilter:'today'}"
-          routerLink="/monthly-report" lines="none" routerLinkActive="active-menu">
+          [class.active-menu]="_dataService.isActiveRoute('monthly-report')" routerLink="/monthly-report" lines="none">
           <ion-img class="pr-2" src="../../assets/icon/MenuSection_icons/monthly-report.svg"></ion-img>Monthly
           Report</ion-item>
         <ion-item
           [queryParams]="{fromdate:_dataService.getTodayDate(),todate:_dataService.getTodayDate(),isDateFilter:'today'}"
-          routerLink="/executives-report" lines="none" routerLinkActive="active-menu">
+          [class.active-menu]="_dataService.isActiveRoute('executives-report')" routerLink="/executives-report"
+          lines="none">
           <ion-img class="pr-2" src="../../assets/icon/MenuSection_icons/executives-report.svg"></ion-img>Executive
           Report</ion-item>
       </ion-list>

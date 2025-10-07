@@ -3,17 +3,19 @@
 <!-- DATE FILTER SECTION -->
 <div class="m-2 datefilter-div">
   <ion-row>
-    <ion-col (click)="selectDateFilter('today')" class="normal_btn flex  align-items-center justify-content-center"
-      [ngClass]="filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
+    <ion-col (click)="_dataService.selectDateFilter('today')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
       <span>Today</span>
     </ion-col>
-    <ion-col (click)="selectDateFilter('lastsevenDay')"
+    <ion-col (click)="_dataService.selectDateFilter('lastsevenDay')"
       class="normal_btn flex  align-items-center justify-content-center"
-      [ngClass]="filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
+      [ngClass]="_dataService.filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
       <span>Last 7 days</span>
     </ion-col>
-    <ion-col (click)="selectDateFilter('custom')" class="normal_btn flex  align-items-center justify-content-center"
-      [ngClass]="this.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
+    <ion-col (click)="_dataService.selectDateFilter('custom')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
       <label for="hourly-rport-customDate">Custom</label>
     </ion-col>
     <ion-col class="normal_btn flex  align-items-center justify-content-center" size="1.2">
@@ -23,29 +25,30 @@
 </div>
 
 <p-datepicker [touchUI]="true" appendTo="body" selectionMode="range" inputId="hourly-rport-customDate"
-  [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'" (onSelect)="selectDateFilter('custom')" />
+  [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'" (onSelect)="_dataService.selectDateFilter('custom')" />
 
 
 
 <ion-row class="align-items-center">
   <!-- DATE COL -->
-  <ion-col [size]=" (!isCustomDate && (filteredParams.fromdate==filteredParams.todate))?5.5:6"
+  <ion-col [size]=" (!isCustomDate && (_dataService.filteredParams.fromdate==_dataService.filteredParams.todate))?5.5:6"
     class="date-col flex align-items-center justify-content-center">
 
-    @if(!isCustomDate && (filteredParams.fromdate ==
-    filteredParams.todate)){
+    @if(!isCustomDate && (_dataService.filteredParams.fromdate ==
+    _dataService.filteredParams.todate)){
     <ion-icon name="chevron-back-outline" class="px-2" (click)="changeDate('previous')" size="2.5"
       [ngClass]="checkIfBeforeTargetDate() ? 'pointer_eventsNone' : ''"></ion-icon>
     }
 
     <label style="font-size: 12px;" for="hourly-rport-customDate">
-      {{(isCustomDate || filteredParams.fromdate !==
-      filteredParams.todate)?(filteredParams.fromdate?.split('-').join('/') + '-' +
-      filteredParams.todate?.split('-').join('/')): filteredParams.fromdate?.split('-').join('/') }}
+      {{(isCustomDate || _dataService.filteredParams.fromdate !==
+      _dataService.filteredParams.todate)?(_dataService.filteredParams.fromdate?.split('-').join('/') + '-' +
+      _dataService.filteredParams.todate?.split('-').join('/')):
+      _dataService.filteredParams.fromdate?.split('-').join('/') }}
     </label>
 
-    @if(!isCustomDate && (filteredParams.fromdate ==
-    filteredParams.todate)){
+    @if(!isCustomDate && (_dataService.filteredParams.fromdate ==
+    _dataService.filteredParams.todate)){
     <ion-icon name="chevron-forward-outline" class="px-2" (click)="changeDate('next')" size="2.5"
       [ngClass]="checkIfAfterTargetDate() ? 'pointer_eventsNone' : ''"></ion-icon>
     }
@@ -53,8 +56,8 @@
 
   <!-- AUTOCOMPLETE COL -->
   @if(searchVisible){
-  <ion-col [size]="(!isCustomDate && (filteredParams.fromdate ==
-         filteredParams.todate))?5: 5" class=" ml-2" style="height: 100%;">
+  <ion-col [size]="(!isCustomDate && (_dataService.filteredParams.fromdate ==
+         _dataService.filteredParams.todate))?5: 5" class=" ml-2" style="height: 100%;">
     <p-autoComplete [dropdown]="true" placeholder="Search Exec" [(ngModel)]="selectedExec"
       [suggestions]="executiveList1" (input)="onExecInput($event)" (completeMethod)="filterExecName($event)"
       optionLabel="Name" (onSelect)="onExecSelected($event)" />
@@ -72,7 +75,7 @@
   <ion-col class="zeroactivity flex ">
     <span class="flex align-items-center gap-1" style="width: 100%;">
       Zero Activities
-      <ion-toggle [checked]="filteredParams.isZeroActiveLeads == 'true'"
+      <ion-toggle [checked]="_dataService.filteredParams.isZeroActiveLeads == 'true'"
         (ionChange)="onToggleZeroActivityReport($event)">
       </ion-toggle>
     </span>
