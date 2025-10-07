@@ -1,0 +1,128 @@
+<app-header></app-header>
+
+<!-- DATE FILTER SECTION -->
+<div class="m-2 datefilter-div">
+  <ion-row>
+    <ion-col (click)="_dataService.selectDateFilter('today')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
+      <span>Today</span>
+    </ion-col>
+    <ion-col (click)="_dataService.selectDateFilter('lastsevenDay')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
+      <span>Last 7 days</span>
+    </ion-col>
+    <ion-col (click)="_dataService.selectDateFilter('custom')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
+      <label for="hourly-rport-customDate">Custom</label>
+    </ion-col>
+    <ion-col class="normal_btn flex  align-items-center justify-content-center" size="1.2">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </ion-col>
+  </ion-row>
+</div>
+
+<p-datepicker [touchUI]="true" appendTo="body" selectionMode="range" inputId="hourly-rport-customDate"
+  [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'" (onSelect)="_dataService.selectDateFilter('custom')" />
+
+
+
+<ion-row class="align-items-center">
+  <!-- DATE COL -->
+  <ion-col [size]=" (!isCustomDate && (_dataService.filteredParams.fromdate==_dataService.filteredParams.todate))?5.5:6"
+    class="date-col flex align-items-center justify-content-center">
+
+    @if(!isCustomDate && (_dataService.filteredParams.fromdate ==
+    _dataService.filteredParams.todate)){
+    <ion-icon name="chevron-back-outline" class="px-2" (click)="changeDate('previous')" size="2.5"
+      [ngClass]="checkIfBeforeTargetDate() ? 'pointer_eventsNone' : ''"></ion-icon>
+    }
+
+    <label style="font-size: 12px;" for="hourly-rport-customDate">
+      {{(isCustomDate || _dataService.filteredParams.fromdate !==
+      _dataService.filteredParams.todate)?(_dataService.filteredParams.fromdate?.split('-').join('/') + '-' +
+      _dataService.filteredParams.todate?.split('-').join('/')):
+      _dataService.filteredParams.fromdate?.split('-').join('/') }}
+    </label>
+
+    @if(!isCustomDate && (_dataService.filteredParams.fromdate ==
+    _dataService.filteredParams.todate)){
+    <ion-icon name="chevron-forward-outline" class="px-2" (click)="changeDate('next')" size="2.5"
+      [ngClass]="checkIfAfterTargetDate() ? 'pointer_eventsNone' : ''"></ion-icon>
+    }
+  </ion-col>
+
+  <!-- AUTOCOMPLETE COL -->
+  @if(searchVisible){
+  <ion-col [size]="(!isCustomDate && (_dataService.filteredParams.fromdate ==
+         _dataService.filteredParams.todate))?5: 5" class=" ml-2" style="height: 100%;">
+    <p-autoComplete [dropdown]="true" placeholder="Search Exec" [(ngModel)]="selectedExec"
+      [suggestions]="executiveList1" (input)="onExecInput($event)" (completeMethod)="filterExecName($event)"
+      optionLabel="Name" (onSelect)="onExecSelected($event)" />
+  </ion-col>
+  <ion-col size="1" (click)="searchVisible = false" class="content_center chevron-forward-outline">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </ion-col>
+  }
+
+  <!-- SEARCH ICON -->
+  @if(!searchVisible){
+  <ion-col size="1" class="search-icon flex align-items-center active_btn justify-content-center mx-1">
+    <ion-icon name="search" (click)="searchMembers()"></ion-icon>
+  </ion-col>
+  <ion-col class="zeroactivity flex ">
+    <span class="flex align-items-center gap-1" style="width: 100%;">
+      Zero Activities
+      <ion-toggle [checked]="_dataService.filteredParams.isZeroActiveLeads == 'true'"
+        (ionChange)="onToggleZeroActivityReport($event)">
+      </ion-toggle>
+    </span>
+  </ion-col>
+  }
+
+</ion-row>
+<ion-content>
+
+  <div class="m-2 calls-card">
+    <ion-row class="header">
+      <ion-col class="text-center">
+        <span>Gowshik</span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="calls-row">
+      <ion-col class="flex justify-content-between">
+        <span>Total Calls</span>
+        <span>50</span>
+      </ion-col>
+      <ion-col class="flex justify-content-between">
+        <span>Answered Calls</span>
+        <span>20</span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="calls-row">
+      <ion-col class="flex justify-content-between">
+        <span>Abandoned</span>
+        <span>10</span>
+      </ion-col>
+      <ion-col class="flex justify-content-between">
+        <span>Call Duration</span>
+        <span>00:53:24</span>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="calls-row">
+      <ion-col class="flex justify-content-between">
+        <span>Inbound</span>
+        <span>25</span>
+      </ion-col>
+      <ion-col class="flex justify-content-between">
+        <span>Outbound</span>
+        <span>25</span>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

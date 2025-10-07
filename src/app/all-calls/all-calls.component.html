@@ -1,0 +1,117 @@
+<app-header></app-header>
+
+<!-- DATE FILTER SECTION -->
+<div class="m-2 mb-0 datefilter-div">
+  <ion-row>
+    <ion-col (click)="_dataService.selectDateFilter('today')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
+      <span>Today</span>
+    </ion-col>
+    <ion-col (click)="_dataService.selectDateFilter('lastsevenDay')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
+      <span>Last 7 days</span>
+    </ion-col>
+    <ion-col (click)="_dataService.selectDateFilter('custom')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
+      <label for="all-calls-customDate">Custom</label>
+    </ion-col>
+    <ion-col class="normal_btn flex  align-items-center justify-content-center" size="1.2">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </ion-col>
+  </ion-row>
+</div>
+
+<p-datepicker [touchUI]="true" class="custom-datepicker" appendTo="body" selectionMode="range"
+  inputId="all-calls-customDate" [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'"
+  (onSelect)="_dataService.selectDateFilter('custom')" />
+
+
+<!-- SEARCH BAR  -->
+<ion-row>
+  <ion-searchbar placeholder="Search a name / mobile number"></ion-searchbar>
+</ion-row>
+
+<ion-row class="scroll-row" [appScrollCenterDirective]="'active_btn'">
+  <ion-col class="scroll-item" (click)="onStages('allCalls')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'allCalls' ? 'active_btn' : 'normal_btn'">
+    <span>All Calls - 250</span>
+  </ion-col>
+  <ion-col class="scroll-item" (click)="onStages('assign')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'assign' ? 'active_btn' : 'normal_btn'">
+    <span>Inbound - 152</span>
+  </ion-col>
+  <ion-col class="scroll-item" (click)="onStages('untouched')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'untouched' ? 'active_btn' : 'normal_btn'">
+    <span>Outbound - 54</span>
+  </ion-col>
+  <ion-col class="scroll-item" (click)="onStages('touched')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'touched' ? 'active_btn' : 'normal_btn'">
+    <span>Abandoned - 365</span>
+  </ion-col>
+  <ion-col class="scroll-item" (click)="onStages('touched1')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'touched1' ? 'active_btn' : 'normal_btn'">
+    <span>Missed - 365</span>
+  </ion-col>
+</ion-row>
+
+<!--CUSTOME DATE FILTERED CHIP  -->
+@if(_dataService.filteredParams?.isDateFilter == 'custom'){
+<ion-row class="filteredChips">
+  <ion-col class="py-0">
+    <ion-button fill="clear" (click)="_dataService.filteredParams.isDateFilter = 'today';
+      _dataService.selectDateFilter('today');">
+      {{_dataService.filteredParams.fromdate+" to "+_dataService.filteredParams.todate}}
+      <ion-icon slot="end" name="close"></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-row>
+}
+
+<ion-content>
+  <ion-card>
+    <div class="px-2">
+      <ion-row>
+        <ion-col class="text-value"><span>Arjun Tharakan</span></ion-col>
+        <ion-col class="text-value text-right"><span>Rohan Mehta</span></ion-col>
+      </ion-row>
+      <ion-row class="border_bottom">
+        <ion-col class="text-value number"><span>95474 85471</span></ion-col>
+        <ion-col class="text-label text-right pt-0 pb-1"><span>Team 002</span></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="text-label"><span>Start Time</span></ion-col>
+        <ion-col class="text-label text-right"><span>End Time</span></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="text-value"><span>14-07-2025, 10:08AM</span></ion-col>
+        <ion-col class="text-value text-right"><span>14-07-2025, 10:16AM</span></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="text-label"><span>Call Duration</span></ion-col>
+        <ion-col class="text-label text-right"><span>Call Status</span></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="text-value"><span>00:04:46</span></ion-col>
+        <ion-col class="text-value text-right">
+          <span class="answeredCall-span">Answered</span>
+          <span class="missedCall-span">Missed</span>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-row class="audio">
+      <ion-col>
+        <audio controls style="width: 100% !important; height: 32px !important;">
+          <source type="audio/wav">
+        </audio>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
+
+</ion-content>

@@ -1,0 +1,78 @@
+<app-header></app-header>
+
+<!-- DATE FILTER SECTION -->
+<div class="m-2 mb-0 datefilter-div">
+  <ion-row>
+    <ion-col (click)="_dataService.selectDateFilter('today')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
+      <span>Today</span>
+    </ion-col>
+    <ion-col (click)="_dataService.selectDateFilter('lastsevenDay')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
+      <span>Last 7 days</span>
+    </ion-col>
+    <ion-col (click)="_dataService.selectDateFilter('custom')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
+      <label for="executive-report-customDate">Custom</label>
+    </ion-col>
+    <ion-col class="normal_btn flex  align-items-center justify-content-center" size="1.2">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </ion-col>
+  </ion-row>
+</div>
+<p-datepicker [touchUI]="true" appendTo="body" selectionMode="range" inputId="executive-report-customDate"
+  [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'" (onSelect)="_dataService.selectDateFilter('custom')" />
+<!-- SEARCH BAR  -->
+<ion-row>
+  <ion-searchbar placeholder="Search a name / mobile number"></ion-searchbar>
+</ion-row>
+
+<!--CUSTOME DATE FILTERED CHIP  -->
+@if(_dataService.filteredParams?.isDateFilter == 'custom'){
+<ion-row class="filteredChips">
+  <ion-col class="py-0">
+    <ion-button fill="clear"
+      (click)="_dataService.filteredParams.isDateFilter = 'today';_dataService.selectDateFilter('today');">
+      {{_dataService.filteredParams.fromdate+" to "+_dataService.filteredParams.todate}}
+      <ion-icon slot="end" name="close"></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-row>
+}
+
+<ion-content>
+  <ion-card>
+    <div style="border-bottom: 0.8px solid #BDE1F4">
+      <ion-row>
+        <ion-col class="text-value pb-0 pt-2"><span style="font-size: 14px;">Arjun Tharakan</span></ion-col>
+        <ion-col class="text-label text-right"><span>Total Calls</span></ion-col>
+      </ion-row>
+      <ion-row class="border_bottom">
+        <ion-col class="text-label number pt-0"><span>RM Executive</span></ion-col>
+        <ion-col class="text-value text-right pt-0 pb-1"><span>300</span></ion-col>
+      </ion-row>
+    </div>
+
+    <ion-row>
+      <ion-col class="text-label"><span>Inbound/unique</span></ion-col>
+      <ion-col class="text-label text-right"><span>Outbound/Unique</span></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-value"><span>89/45</span></ion-col>
+      <ion-col class="text-value text-right"><span>89/45</span></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-label"><span>Answered Calls</span></ion-col>
+      <ion-col class="text-label text-right"><span>Call Duration</span></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-value"><span>200</span></ion-col>
+      <ion-col class="text-value text-right">
+        <span class="onCall-span">00:05:54</span>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

@@ -1,27 +1,44 @@
-
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonRouterLink } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp } from 'ionicons/icons';
+import { NavigationEnd, Router } from '@angular/router';
+import {
+  IonApp,
+  IonSplitPane,
+  IonRouterOutlet,
+} from '@ionic/angular/standalone';
 
+import { MenuComponent } from './menu/menu.component';
+import { MenuController } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  imports: [RouterLink, RouterLinkActive, IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet],
+  imports: [
+    CommonModule,
+    IonApp,
+    IonSplitPane,
+    IonRouterOutlet,
+    MenuComponent,
+    ConfirmDialog,
+  ],
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {
-    addIcons({ mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp });
+  showMenu = true;
+
+  constructor(private menu: MenuController, private router: Router) {
+    this.listenToRouteChanges();
+  }
+
+  listenToRouteChanges() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const noMenuPages = ['/login', '/register', '/forgot-password'];
+
+        this.showMenu = !noMenuPages.some((page) =>
+          event.urlAfterRedirects.startsWith(page)
+        );
+      }
+    });
   }
 }

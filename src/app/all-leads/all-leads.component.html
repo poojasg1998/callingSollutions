@@ -1,0 +1,148 @@
+<app-header></app-header>
+
+<!-- DATE FILTER SECTION -->
+<div class="m-2 mb-0 datefilter-div">
+  <ion-row>
+    <ion-col (click)="_dataService.selectDateFilter('today')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'today' ? 'active_btn' : 'normal_btn'">
+      <span>Today</span>
+    </ion-col>
+    <ion-col (click)="_dataService.selectDateFilter('lastsevenDay')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams.isDateFilter == 'lastsevendays' ? 'active_btn': 'normal_btn'">
+      <span>Last 7 days</span>
+    </ion-col>
+    <ion-col (click)="_dataService.selectDateFilter('custom')"
+      class="normal_btn flex  align-items-center justify-content-center"
+      [ngClass]="_dataService.filteredParams?.isDateFilter == 'custom'?'active_btn':'normal_btn'">
+      <label for="all-leads-customDate">Custom</label>
+    </ion-col>
+    <ion-col class="normal_btn flex  align-items-center justify-content-center" size="1.2">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </ion-col>
+  </ion-row>
+</div>
+<p-datepicker [touchUI]="true" appendTo="body" selectionMode="range" inputId="all-leads-customDate"
+  [(ngModel)]="_dataService.dateRange" [dateFormat]="'yy-mm-dd'" (onSelect)="_dataService.selectDateFilter('custom')" />
+
+<!-- SEARCH BAR  -->
+<ion-row>
+  <ion-searchbar placeholder="Search a name / mobile number"></ion-searchbar>
+</ion-row>
+
+
+<ion-row class="scroll-row" [appScrollCenterDirective]="'active_btn'">
+  <ion-col class="scroll-item" (click)="onStages('allCalls')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'allCalls' ? 'active_btn' : 'normal_btn'">
+    <span>Fresh Leads - 245</span>
+  </ion-col>
+  <ion-col class="scroll-item" (click)="onStages('assign')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'assign' ? 'active_btn' : 'normal_btn'">
+    <span>Assigned -233</span>
+  </ion-col>
+  <ion-col class="scroll-item" (click)="onStages('untouched')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'untouched' ? 'active_btn' : 'normal_btn'">
+    <span>Untouched - 2487</span>
+  </ion-col>
+  <ion-col class="scroll-item" (click)="onStages('touched')"
+    [ngClass]="_dataService.filteredParams?.callStatus == 'touched' ? 'active_btn' : 'normal_btn'">
+    <span>Touched - 365</span>
+  </ion-col>
+</ion-row>
+
+<!--CUSTOME DATE FILTERED CHIP  -->
+@if(_dataService.filteredParams?.isDateFilter == 'custom'){
+<ion-row class="filteredChips">
+  <ion-col class="py-0">
+    <ion-button fill="clear" (click)="_dataService.filteredParams.isDateFilter = 'today';
+    _dataService.selectDateFilter('today');">
+      {{_dataService.filteredParams.fromdate+" to "+_dataService.filteredParams.todate}}
+      <ion-icon slot="end" name="close"></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-row>
+}
+
+<ion-content>
+  <!-- LEAD DETAILS CARD -->
+  <ion-card>
+    <!-- Lead Name -->
+    <ion-row>
+      <ion-col class="text-label"><span>Lead Name</span></ion-col>
+      <ion-col class="text-label text-right"><span>Enquired</span></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-value"><span>Karthik</span></ion-col>
+      <ion-col class="text-value text-right"><span>Product 001</span></ion-col>
+    </ion-row>
+
+    <!-- Source -->
+    <ion-row>
+      <ion-col class="text-label"><span>Source</span></ion-col>
+      <ion-col class="text-label text-right"><span>Assignees</span></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-value"><span>Google Ads</span></ion-col>
+      <ion-col class="text-value text-right"><span>Meeran</span></ion-col>
+    </ion-row>
+
+    <!-- Received On + Icons in same row -->
+    <ion-row class="align-items-center">
+      <ion-col size="8">
+        <div class="flex flex-column">
+          <span class="text-label">Received On</span>
+          <span class="text-value">26-Mar-2024 01:02 PM</span>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="flex justify-content-end align-items-center">
+        <ion-img (click)="callConfirmationModal.present()" src="../../assets/icon/call.svg" class="mx-1"></ion-img>
+        <ion-img src="../../assets/icon/whats's_app.svg" class="mx-1"></ion-img>
+        <ion-img src="../../assets/icon/play.svg" class="mx-1"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <span class="Assign-icon flex justify-content-center align-items-center">
+    <ion-img src="../../assets/icon/share.svg"></ion-img>
+    Assign
+  </span>
+</ion-content>
+
+<ion-modal #callConfirmationModal class="callConfirmationModal">
+  <ng-template>
+    <ion-header>
+      <ion-row class="active_btn">
+        <ion-col size="1"></ion-col>
+        <ion-col size="9" class="flex justify-content-center align-items-center">
+          <h3 class="m-0">Initiate Outbound Call</h3>
+        </ion-col>
+        <ion-col size="2" (click)="callConfirmationModal.dismiss()"
+          class="flex justify-content-center align-items-center">
+          <ion-icon name="close"></ion-icon></ion-col>
+      </ion-row>
+    </ion-header>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <p class="call-confirmation-btn m-0">Do you want to place a call to
+          {{"lead.CustomerName"}}
+          <span>
+            {{"("+"lead.number"+")"}}</span>
+          ?
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-footer>
+      <ion-row>
+        <ion-col class="ion-text-center" (click)="callConfirmationModal.dismiss()">
+          <ion-button fill="clear" class="m-0 active-btn-light-color">
+            Cancel
+          </ion-button>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <ion-button fill="clear" class="m-0 active_btn"> Call </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-footer>
+  </ng-template>
+</ion-modal>

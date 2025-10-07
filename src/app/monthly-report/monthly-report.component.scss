@@ -1,0 +1,145 @@
+.date-row {
+  ion-col:first-child {
+    border: 0.8px solid #d9d9d9;
+    border-radius: 2px;
+  }
+  ion-col:nth-child(2) {
+    border: 0.8px solid #d9d9d9;
+    border-radius: 2px;
+  }
+  .chekdate-btn {
+    background: #0b7ab2;
+    color: #ffffff;
+  }
+  gap: 10px;
+  font-size: 12px;
+}
+.text {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.event-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #0582c1;
+  color: #fff;
+  padding: 0px 6px;
+  font-size: 10px;
+  border-left: 1px solid #0582c1;
+  border-bottom: 1px solid #0582c1;
+  border-bottom-left-radius: 2px;
+}
+
+/* Adjust the badge for smaller screens if needed */
+.event-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 8px; /* Smaller font size for mobile */
+  padding: 0px 4px;
+}
+.custom-letter {
+  color: #424f61;
+}
+.monthly-report-datepicker {
+  .p-datepicker-calendar-container {
+    display: block !important;
+  }
+
+  .p-datepicker-panel {
+    position: none;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+  }
+
+  .p-datepicker-day-cell {
+    padding: 0px !important;
+  }
+  .p-datepicker-day {
+    height: 95% !important;
+    width: 66% !important;
+    border-radius: 0px !important;
+    overflow: visible !important;
+    display: block !important;
+    margin: 0;
+  }
+  .custom-day-cell {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    opacity: 1;
+    width: 40px !important;
+    height: 40px !important;
+    text-align: center !important;
+  }
+  .p-datepicker-header {
+    padding: 0 !important;
+    background: #0b7ab2 !important;
+    color: white !important;
+  }
+  .p-datepicker-panel {
+    padding: 0 !important;
+  }
+  .p-datepicker-day-view {
+    margin: 0 !important;
+  }
+  .p-datepicker-title {
+    button {
+      font-size: 18px;
+      color: white !important;
+    }
+  }
+  .p-button-text.p-button-secondary {
+    color: white !important;
+  }
+  /* Make the datepicker container flexible */
+  .p-datepicker-calendar-container,
+  .p-datepicker-panel {
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+  }
+
+  /* Make the day cells flexible and proportionally sized */
+  .p-datepicker-day-cell {
+    padding: 0;
+    width: 2.28%; /* 100% / 7 days */
+    height: auto; /* Allow height to adjust automatically */
+    text-align: center;
+  }
+
+  /* Ensure the content within the day cell is also responsive */
+  .custom-day-cell {
+    position: relative;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 40px; /* Set a minimum height to prevent squishing on very small screens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .p-datepicker-weekday-cell {
+    font-size: 12px;
+    font-family: "Poppins";
+  }
+  /* Keep the other styles, but ensure they don't break the layout */
+  .p-datepicker-day {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+  }
+}
+.p-datepicker-panel {
+  width: 90% !important;
+}
+.p-datepicker-month-selected {
+  background: #0b7ab2;
+}

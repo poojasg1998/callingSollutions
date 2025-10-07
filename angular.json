@@ -35,7 +35,8 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": ["src/global.scss", "src/theme/variables.scss",
+  "node_modules/primeflex/primeflex.css","node_modules/primeicons/primeicons.css"],
             "scripts": [],
             "browser": "src/main.ts"
           },
@@ -109,7 +110,8 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": ["src/global.scss", "src/theme/variables.scss",
+  "node_modules/primeflex/primeflex.css","node_modules/primeicons/primeicons.css"],
             "scripts": []
           },
           "configurations": {
@@ -129,7 +131,10 @@
     }
   },
   "cli": {
-    "schematicCollections": ["@ionic/angular-toolkit"]
+    "schematicCollections": [
+      "@ionic/angular-toolkit"
+    ],
+    "analytics": false
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

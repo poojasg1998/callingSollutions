@@ -1,0 +1,30 @@
+.onCall-span {
+  background: #0c6d00;
+  border-radius: 50px;
+  color: white;
+  padding: 0 6px;
+}
+.number {
+  color: #0b7ab2;
+}
+.border_bottom {
+  border-bottom: 0.4px solid #9a9a9a;
+}
+.refresh-icon {
+  color: white;
+  font-size: 18px;
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
+  background: #0b7ab2;
+  border-radius: 35px;
+  padding: 5px;
+  --ionicon-stroke-width: 60px;
+  gap: 4px;
+  ion-icon {
+    font-size: 28px;
+  }
+}
+ion-card {
+  box-shadow: 0px 8px 24px 0px #959da533;
+}
